@@ -83,7 +83,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="/user/export">Export via HTTP-request</a>
+                    <a href="/users">Export via HTTP-request</a>
                     <span>Export via console</span>
                 </div>
             </div>
