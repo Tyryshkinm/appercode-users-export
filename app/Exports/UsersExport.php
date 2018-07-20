@@ -29,7 +29,7 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize
     }
 
     /**
-     * Get users and them profiles if it exists
+     * Get a list of users and their profiles.
      *
      * @return array $users
      */
@@ -67,22 +67,31 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize
                 if ($profile->userId == $user->id) {
                     $users[$key] = array_merge($users[$key], [
                         'firstname' => $profile->firstName,
-                        'lastname' => $profile->lastName,
-                        'position' => $profile->position
+                        'lastname'  => $profile->lastName,
+                        'position'  => $profile->position
                     ]);
                 }
             }
         }
         return $users;
-
     }
 
+    /**
+     * Create an instance of the collection from an array of users.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         $users = $this->getUsers();
         return collect($users);
     }
 
+    /**
+     * Set column headers in the table.
+     *
+     * @return array
+     */
     public function headings(): array
     {
         return [
@@ -94,6 +103,4 @@ class UsersExport implements FromCollection, WithHeadings, ShouldAutoSize
             'position'
         ];
     }
-
-
 }

@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Exports\UsersExport;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
+use Mockery\Exception;
 
 class SendEmailWithExportUsers extends Command
 {
@@ -39,6 +41,24 @@ class SendEmailWithExportUsers extends Command
      */
     public function handle()
     {
-        Excel::store(new UsersExport(), 'users.xls');
+        $fileName = date('h:i:s_dmY') . '_users.xls';
+        if (Excel::store(new UsersExport(), $fileName)) {
+            Mail::send('emails.export-users', $data = [], function ($message) use ($fileName) {
+                $message->to($this->argument('email'));
+                $message->subject('Appercode Users Export');
+                $message->from('etozhemailtest@gmail.com');
+                $message->attach(storage_path('app/' . $fileName));
+            });
+            if (count(Mail::failures()) > 0) {
+                $this->info('An error occurred while sending email to:');
+                foreach (Mail::failures() as $email) {
+                    $this->info($email . '<br />');
+                }
+            } else {
+                $this->info('File successfully sent to ' . $this->argument('email'));
+            }
+        } else {
+            $this->info('An error occurred while saving the file.');
+        }
     }
 }

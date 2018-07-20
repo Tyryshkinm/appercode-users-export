@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class UserController extends Controller
 {
     /**
-     * Export users into .xls
+     * Export users into .xls file.
      */
     public function export()
     {
