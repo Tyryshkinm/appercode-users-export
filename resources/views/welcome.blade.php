@@ -59,6 +59,11 @@
                 text-transform: uppercase;
             }
 
+            .links > a > span {
+                text-transform: lowercase;
+                color: brown;
+            }
+
             .m-b-md {
                 margin-bottom: 30px;
             }
@@ -83,8 +88,8 @@
                 </div>
 
                 <div class="links">
-                    <a href="/users">Export via HTTP-request</a>
-                    <span>Export via console</span>
+                    <a href="/users/export">Export via HTTP-request</a>
+                    <a>Export via console (<span>$ php artisan email:send-exported-users john@doe</span>)</a>
                 </div>
             </div>
         </div>

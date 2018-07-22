@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use App\Exports\UsersExport;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
-use Mockery\Exception;
 
 class SendEmailWithExportUsers extends Command
 {

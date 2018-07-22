@@ -213,4 +213,14 @@ return [
 
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Appercode Session Token
+    |--------------------------------------------------------------------------
+    |
+    | This is a token, which is returned after authentication on the appercode server.
+    |
+    */
+    'appercode_session_token' => env('X_APPERCODE_SESSION_TOKEN', null),
+
 ];
