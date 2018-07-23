@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Controllers\UserController;
 use Illuminate\Console\Command;
 use App\Exports\UsersExport;
 use Illuminate\Support\Facades\Mail;
@@ -40,8 +41,10 @@ class SendEmailWithExportUsers extends Command
      */
     public function handle()
     {
+        $users = new UserController();
+        $users = $users->get();
         $fileName = date('h:i:s_dmY') . '_users.xls';
-        if (Excel::store(new UsersExport(), $fileName)) {
+        if (Excel::store(new UsersExport($users), $fileName)) {
             Mail::send('emails.export-users', $data = [], function ($message) use ($fileName) {
                 $message->to($this->argument('email'));
                 $message->subject('Appercode Users Export');
